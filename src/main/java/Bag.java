@@ -14,7 +14,10 @@ public abstract class Bag {
      *       - an array of Strings named contents
      */
 
-
+    private String color;
+    private int numberOfContents = 0;
+    private int capacity;
+    private String[] contents;
 
 
     /*
@@ -27,7 +30,11 @@ public abstract class Bag {
      * its contents.)
      */
 
-
+    Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+        contents = new String[capacity];
+    }
 
 
     /*
@@ -38,17 +45,26 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor() {
+        return this.color;
+    }
 
+    public int getNumberOfContents() {
+        return this.numberOfContents;
+    }
 
+    public int getCapacity() {
+        return capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
 
-
-
-
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     /*
      * TODO: Create a method called addItem that takes in a String
@@ -61,7 +77,14 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
-
+    public boolean addItem(String item) {
+        if (numberOfContents < capacity) {
+            contents[numberOfContents] = item;
+            numberOfContents++;
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -76,7 +99,15 @@ public abstract class Bag {
      * @return
      */
 
-
+    public String popItem() {
+        if (numberOfContents != 0) {
+            String toReturn = contents[numberOfContents - 1];
+            contents[numberOfContents - 1] = null;
+            numberOfContents--;
+            return toReturn;
+        }
+        return null;
+    }
 
 
 
@@ -86,8 +117,10 @@ public abstract class Bag {
      * @param n the amount to increase this Bag's capacity by
      */
     public void increaseCapacity(int n) {
-        // TODO: Implement this method.
-
+        String[] moreContents = new String[contents.length + n];
+        System.arraycopy(contents, 0, moreContents, 0, contents.length);
+        contents = moreContents;
+        capacity += n;
     }
 
     /**
